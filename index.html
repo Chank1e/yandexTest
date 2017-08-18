@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Яразработчик</title>
+</head>
+<body>
+  <div class="wrap container">
+    <div class="header">
+      <div class="logo">
+        <img src="img/smallLogo.png">
+      </div>
+    </div>
+    <div class="formContainer">
+      <form id="mainForm" action="json/progress.json">
+        <div class="form-group">
+          <label for="fioInput">ФИО</label>
+          <input type="text" class="form-control" id="fioInput" placeholder="ФИО" name="fio">
+        </div>
+        <div class="form-group">
+          <label for="emailInput">Email</label>
+          <input type="email" class="form-control" id="emailInput" placeholder="E-Mail" name="email">
+        </div>
+        <div class="form-group">
+          <label for="phoneInput">Телефон</label>
+          <input type="text" class="form-control" id="phoneInput" placeholder="+7 (921) 941-45-25" name="phone">        </div>
+        <button type="submit" class="btn btn-default btn-block" id="submitButton">Отправить</button>
+      </form>
+    </div>
+    <div id="resultContainer"></div>
+  </div>
+  <script src="libs/jquery.min.js" charset="utf-8"></script>
+  <script src="libs/mask.min.js" charset="utf-8"></script>
+  <script src="index.js" charset="utf-8"></script>
+</body>
+</html>
