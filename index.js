@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $("#phoneInput").mask('+7(000)000-00-00');
-  $('#mainForm').submit(function(e){
+  $('#myForm').submit(function(e){
     e.preventDefault();
     var phone = $("#phoneInput").cleanVal(),
         phoneNotClean = $("#phoneInput").val(),
@@ -11,7 +11,7 @@ $(document).ready(function(){
         isValPhone=false;
     //IF ALL IS VALID
     function requestJson(){
-      $.getJSON($('#mainForm').attr('action'))
+      $.getJSON($('#myForm').attr('action'))
        .done(function(data) {
          $('#submitButton').prop('disabled',false);
          if(MyForm.validate().isValid){
@@ -122,6 +122,6 @@ var MyForm = {
     }
   },
   submit:function(){
-      $('#mainForm').submit();
+      $('#myForm').submit();
   }
 };
