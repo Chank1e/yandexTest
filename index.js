@@ -9,39 +9,31 @@ $(document).ready(function(){
         isValFio=false,
         isValEmail=false,
         isValPhone=false;
-
-//console.log(fio,email,phone);
-    //$('#submitButton').prop('disabled',true);
-
     //IF ALL IS VALID
     function requestJson(){
       $.getJSON($('#mainForm').attr('action'))
        .done(function(data) {
          $('#submitButton').prop('disabled',false);
-         if(data.status=='success'){
-           $('#resultContainer').text(data.status).attr('class','success');
-         } else if(data.status=='error'){
-           $('#resultContainer').text(data.reason).attr('class','error');
-         } else if(data.status=='progress'){
-           $('#resultContainer').attr('class','progress');
-           setTimeout(requestJson,data.timeout);
+         if(MyForm.validate().isValid){
+             if(data.status=='success'){
+               $('#resultContainer').text(data.status).attr('class','success');
+             } else if(data.status=='error'){
+               $('#resultContainer').text(data.reason).attr('class','error');
+             } else if(data.status=='progress'){
+               $('#resultContainer').attr('class','progress');
+               setTimeout(requestJson,data.timeout);
+             }
          }
       });
     };
   function isValidForm(){
     let errFlds = [];
     //FIO VALIDATION
-    fio = fioI.replace(/\s{2,}/g, ' ').match(/\s/g);
-    //let regExpFio = /[а-яA-ЯёЁ]+\s[а-яA-ЯёЁ]+\s[а-яA-ЯёЁ]+/;
-    if(fio!=null){
-        if(fio.length===2){
+    fio = fioI.replace(/\s{2,}/g, ' ');
+    let regExpFio = /^([А-Яа-яёЁ]+)\s([А-Яа-яёЁ]+)\s([А-Яа-яёЁ]+)$/;
+    if(fio!=null&&regExpFio.test(fio)){
           isValFio=true;
           $('#fioInput').css('border','1px solid rgba(0,0,0,.15)')
-        } else {
-          isValFio=false;
-          errFlds.push('fio');
-          $('#fioInput').css('border','1px solid red')
-        }
     }  else {
       isValFio=false;
       errFlds.push('fio');
@@ -83,15 +75,16 @@ $(document).ready(function(){
       }
     return {'isValid':isValPhone&&isValFio&&isValEmail,'errorFields':errFlds};
   };
-
-    if(isValidForm().isValid){
+  let isValidObj = isValidForm();
+    if(isValidObj.isValid){
       $('#submitButton').prop('disabled',true);
       MyForm.isValid=true;
       MyForm.errorFields=[];
       requestJson();
     } else {
+      $('#resultContainer').attr('class','');
       MyForm.isValid=false;
-      MyForm.errorFields=isValidForm().errorFields;
+      MyForm.errorFields=isValidObj.errorFields;
     }
 
   });
@@ -108,7 +101,7 @@ var MyForm = {
   getData:function(){
     fio=$('#fioInput').val();
     email=$('#emailInput').val();
-    phone=$('#phoneInput').cleanVal();
+    phone=$('#phoneInput').val();
     return {
       'fio':fio,
       'email':email,
