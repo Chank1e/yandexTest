@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 
     //EMAIL VALIDATION
-    let regExpYandex = /^[a-z]((\.|-){0,1}[a-z|0-9])+(\.|-){0,1}[a-z|0-9]\@(ya\.ru|yandex\.(ru|ua|by|kz|com))$/;
+    let regExpYandex = /^[a-z]((\.|-){0,1}[a-z|0-9])+\@(ya\.ru|yandex\.(ru|ua|by|kz|com))$/;
     if(regExpYandex.test(email)){
       isValEmail=true;
       $('#emailInput').css('border','1px solid rgba(0,0,0,.15)')
